@@ -3,6 +3,18 @@ public record CreateProductCommand(string Name, List<string> Category, string De
     : ICommand<CreateProductResult>;
 public record CreateProductResult(Guid Id);
 
+public class CreateProductsCommandValidator : AbstractValidator<CreateProductCommand>
+{
+    public CreateProductsCommandValidator()
+    {
+        RuleFor(x => x.Name).NotEmpty().WithMessage("Products name should not be empty");
+        RuleFor(x => x.Category).NotEmpty().WithMessage("Products category should not be empty");
+        RuleFor(x => x.ImageFile).NotEmpty().WithMessage("Products ImageFile should not be empty");
+        RuleFor(x => x.Price).GreaterThan(0).WithMessage("Products prize should not be zero");
+
+    }
+}
+
 internal class CreateProductHandler(IDocumentSession session)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {

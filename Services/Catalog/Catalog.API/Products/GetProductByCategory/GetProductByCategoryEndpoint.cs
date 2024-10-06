@@ -1,10 +1,8 @@
-﻿
-using MediatR;
-using OpenTelemetry.Trace;
+﻿using Microsoft.Extensions.Logging;
 
 namespace Catalog.API.Products.GetProductByCategory;
 //public record GetProductByCategoryRequest();
-public record GetProductByCategoryResponse(IEnumerable<Product> products);
+public record GetProductByCategoryResponse(IEnumerable<Product> Products);
 public class GetProductByCategoryEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -13,7 +11,10 @@ public class GetProductByCategoryEndpoint : ICarterModule
         async (string category, ISender sender) =>
         {
             var result = await sender.Send(new GetProductByCategoryQuery(category));
-            var response = result.Adapt<GetProductByCategoryResponse>();
+
+
+            var response = result.products;
+
             return Results.Ok(response);
         })
         .WithName("GetProductByCategory")

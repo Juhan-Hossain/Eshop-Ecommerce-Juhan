@@ -12,13 +12,13 @@ namespace Ordering.Domain.Models
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
 
-            var Product = new Product
+            var product = new Product
             {
                 Id = id,
                 Name = name,
                 Price = price
             };
-            return Product;
+            return product;
         }
     }
 }

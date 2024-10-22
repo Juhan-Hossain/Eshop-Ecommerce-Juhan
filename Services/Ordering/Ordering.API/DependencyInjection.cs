@@ -7,7 +7,7 @@
             //services.AddCarter();
             return services;
         }
-        public static WebApplication  UpdateApiServices(this WebApplication app)
+        public static WebApplication  UseApiServices(this WebApplication app)
         {
             //services.AddCarter();
             return app;
